@@ -138,7 +138,10 @@ fn build(
     let (scam_type, summary, advice) = match model {
         Some(m) => {
             for f in m.red_flags {
-                if !red_flags.iter().any(|r| overlaps(input, &r.quote, &f.quote)) {
+                if !red_flags
+                    .iter()
+                    .any(|r| overlaps(input, &r.quote, &f.quote))
+                {
                     red_flags.push(f);
                 }
             }
