@@ -1,0 +1,27 @@
+name: Report a scam pattern
+description: Seen a scam message ShineEye misses? Tell us.
+labels: ["new-pattern"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Redact personal details first.** Replace phone numbers, account numbers and names, e.g. `0803*****12`, `[NAME]`.
+  - type: textarea
+    id: message
+    attributes:
+      label: The message (redacted)
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: What kind of scam is it?
+      options: [Fake alert, OTP / PIN / BVN request, Phishing link, Ponzi / investment, Crypto, Fake job or loan, Impersonation, Fake prize, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: What gives it away?
+      description: The words or tricks that tell you it is a scam.

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ShineEye: check before you send</title>
+<meta name="description" content="Paste any message, link or wallet. ShineEye tells you in English or Pidgin if it's a scam before you send money. Open source.">
+<meta name="theme-color" content="#0A0C10">
+<link rel="icon" href="/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta property="og:title" content="ShineEye: check before you send">
+<meta property="og:description" content="Paste any message, link or wallet. Know if it's a scam before you send money.">
+<meta property="og:image" content="/icons/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Doto:wght@700;900&family=Geist:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"><i class="glow g1"></i><i class="glow g2"></i></div>
+
+<nav class="nav" aria-label="Main">
+  <a class="brand" href="/" aria-label="ShineEye home">
+    <svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#eye"/></svg>
+    <span>SHINEEYE</span>
+  </a>
+  <div class="nav-right">
+    <div class="seg" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pcm" aria-pressed="false">PIDGIN</button>
+    </div>
+    <a class="pill ghost" id="gh-nav" href="#" target="_blank" rel="https://github.com/Boiyee">GitHub</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-in">
+      <p class="eyebrow">Open-source scam checker · Nigeria</p>
+      <h1>Before you send, <span class="dot">check</span>.</h1>
+      <p class="lede" data-i18n="lede">Paste any message, link or wallet. Know if it's a scam before you send money.</p>
+
+      <form class="panel paste" id="form">
+        <label for="input" class="sr">Message, link or wallet to check</label>
+        <textarea id="input" rows="5" maxlength="4000" required
+          placeholder="Paste the SMS, WhatsApp message, link or wallet address here"></textarea>
+        <i class="scan" aria-hidden="true"></i>
+        <div class="paste-bar">
+          <div class="chips" aria-label="Try an example">
+            <button type="button" class="chip" data-sample="alert">Fake alert</button>
+            <button type="button" class="chip" data-sample="otp">OTP request</button>
+            <button type="button" class="chip" data-sample="crypto">Crypto double</button>
+          </div>
+          <button class="pill primary" id="go" type="submit"><span data-i18n="check">Check it</span></button>
+        </div>
+      </form>
+
+      <p class="err" id="err" role="alert" hidden></p>
+
+      <section class="panel verdict" id="verdict" hidden aria-live="polite">
+        <div class="v-top">
+          <div class="score"><span id="score">0</span><small>/100</small></div>
+          <div class="v-head">
+            <p class="v-label" id="v-label"></p>
+            <p class="v-sum" id="v-sum"></p>
+            <p class="v-meta" id="v-meta"></p>
+          </div>
+        </div>
+        <div class="v-cols">
+          <div>
+            <h2 class="label" data-i18n="flags">Red flags</h2>
+            <ul class="flags" id="flags"></ul>
+          </div>
+          <div>
+            <h2 class="label" data-i18n="todo">What to do</h2>
+            <ol class="advice" id="advice"></ol>
+          </div>
+        </div>
+        <details class="raw">
+          <summary data-i18n="raw">Show raw checks</summary>
+          <pre id="raw"></pre>
+        </details>
+      </section>
+    </div>
+  </section>
+
+  <section class="oss">
+    <p class="eyebrow">Open source · MIT</p>
+    <h2 class="h2">Seen a new scam? <span class="dot">Teach</span> ShineEye.</h2>
+    <p class="lede">New scams show up every month. Anyone can add one in five minutes, and every check gets smarter.</p>
+    <div class="steps">
+      <article class="panel step">
+        <span class="idx">01</span>
+        <h3>Fork the repo</h3>
+        <p>Rust backend, one HTML page, no build step. Runs on any OpenAI-compatible model, including Ollama on your laptop.</p>
+      </article>
+      <article class="panel step">
+        <span class="idx">02</span>
+        <h3>Add a pattern</h3>
+        <pre class="code">{
+  "id": "fake_pos_reversal",
+  "pattern": "\\bpos\\b.{0,30}reversal",
+  "weight": 20,
+  "why_pcm": "Fake POS reversal..."
+}</pre>
+      </article>
+      <article class="panel step">
+        <span class="idx">03</span>
+        <h3>Open a pull request</h3>
+        <p>CI checks that your pattern matches its examples and never flags a genuine bank alert. Then it ships.</p>
+      </article>
+    </div>
+    <div class="oss-cta">
+      <a class="pill primary" id="gh-cta" href="#" target="_blank" rel="https://github.com/Boiyee">Star on GitHub</a>
+      <a class="pill ghost" id="gh-contrib" href="#" target="_blank" rel="noopener">How to contribute</a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">MIT · <a id="gh-foot" href="#" target="_blank" rel="https://github.com/Boiyee">GitHub</a> · Built at Hacktoberfest × B54, FUNAAB · We don't store what you paste</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="eye" viewBox="0 0 48 48">
+    <path d="M4 24C10 14 16.5 10 24 10s14 4 20 14c-6 10-12.5 14-20 14S10 34 4 24z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="24" cy="24" r="7.5" fill="#C6FF3D"/>
+    <circle cx="24" cy="24" r="3" fill="#0A0C10"/>
+    <rect x="2" y="22.75" width="44" height="2.5" rx="1.25" fill="#C6FF3D"/>
+  </symbol>
+</svg>
+
+<script src="/app.js" defer></script>
+</body>
+</html>

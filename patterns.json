@@ -1,0 +1,243 @@
+[
+  {
+    "id": "otp_request",
+    "scam_type": "otp_phishing",
+    "pattern": "\\b(?:send|share|give|forward|tell|provide|reply with|text|drop)\\b[^.\\n]{0,40}\\b(?:otp|one[- ]time (?:password|pin|code)|token|verification code|code (?:we |that was |that )?sent)",
+    "weight": 45,
+    "hard": true,
+    "why_en": "No bank or real company will ever ask for your OTP or code",
+    "why_pcm": "No bank go ever ask you for OTP or code",
+    "examples": [
+      "Send the OTP we sent to you to reactivate",
+      "Kindly share the code sent to your phone",
+      "Abeg forward the verification code wey enter your phone"
+    ],
+    "skip_if_negated": true
+  },
+  {
+    "id": "pin_request",
+    "scam_type": "credential_phishing",
+    "pattern": "\\b(?:send|share|give|provide|enter|confirm|update|reply with|drop)\\b[^.\\n]{0,40}\\b(?:pin|password|cvv|card (?:number|details)|atm card)\\b",
+    "weight": 45,
+    "hard": true,
+    "why_en": "Asks for your PIN, password or card details",
+    "why_pcm": "Dem dey ask for your PIN, password or card details",
+    "examples": [
+      "Kindly send your BVN and PIN to confirm",
+      "Confirm your ATM card details to avoid suspension"
+    ],
+    "skip_if_negated": true
+  },
+  {
+    "id": "bvn_nin_request",
+    "scam_type": "bvn_phishing",
+    "pattern": "\\b(?:send|share|give|provide|confirm|update|verify|link|reply with|drop)\\b[^.\\n]{0,40}\\b(?:bvn|nin|bank verification number)\\b",
+    "weight": 40,
+    "hard": true,
+    "why_en": "Asks you to send or 'update' your BVN or NIN",
+    "why_pcm": "Dem wan make you send or 'update' your BVN or NIN",
+    "examples": [
+      "Update your BVN now to avoid restriction",
+      "Kindly send your BVN and PIN",
+      "Link your NIN here"
+    ],
+    "skip_if_negated": true
+  },
+  {
+    "id": "account_threat",
+    "scam_type": "account_threat",
+    "pattern": "\\b(?:account|card|bvn|sim|line|wallet)\\b[^.\\n]{0,40}\\b(?:will be|has been|is being|would be|go)\\s+(?:blocked|suspended|restricted|deactivated|frozen|closed|barred|block)\\b",
+    "weight": 20,
+    "hard": false,
+    "why_en": "Threatens to block your account to rush you",
+    "why_pcm": "Dem dey threaten say dem go block your account make you rush",
+    "examples": [
+      "Your GTB account will be blocked today",
+      "Your SIM will be barred in 24 hours",
+      "your account go block"
+    ]
+  },
+  {
+    "id": "urgency",
+    "scam_type": "pressure",
+    "pattern": "\\b(?:urgent(?:ly)?|immediately|within (?:1|2|12|24|48) ?(?:hours?|hrs?|mins?|minutes)|right now|act now|last warning|final notice|before (?:midnight|today ends)|sharp sharp|quick quick|now now)\\b",
+    "weight": 10,
+    "hard": false,
+    "why_en": "Pushes you to act fast so you don't think",
+    "why_pcm": "Dem dey rush you make you no get time think",
+    "examples": [
+      "Reply within 24 hours",
+      "URGENT: your account",
+      "send am sharp sharp"
+    ]
+  },
+  {
+    "id": "excess_refund",
+    "scam_type": "fake_alert",
+    "pattern": "\\b(?:mistakenly|wrongly|by mistake|in error)\\b[^.\\n]{0,40}\\b(?:sent|transferred|credited|send)\\b|\\b(?:sent|transferred|credited)\\b[^.\\n]{0,30}\\b(?:excess|extra|too much)\\b|\\brefund (?:the |my )?(?:balance|excess|money|extra)\\b",
+    "weight": 40,
+    "hard": true,
+    "why_en": "Classic fake-alert trick: 'I sent too much, refund me'",
+    "why_pcm": "Na old fake alert trick: 'I send pass, refund me'",
+    "examples": [
+      "I mistakenly sent 50k to your account, please refund",
+      "I transferred excess, kindly refund the balance"
+    ]
+  },
+  {
+    "id": "credit_alert_format",
+    "scam_type": "fake_alert",
+    "pattern": "\\b(?:cr|credit(?:ed)?)\\b\\s*(?:amt|alert)?\\s*[:\\-]?\\s*(?:ngn|n|₦)\\s?[\\d,]+",
+    "weight": 10,
+    "hard": false,
+    "why_en": "Looks like a credit alert: confirm in your bank app, not the SMS",
+    "why_pcm": "E resemble credit alert: check your bank app, no trust SMS",
+    "examples": [
+      "Acct: 01**89 CR: NGN150,000.00 Bal: NGN151,200.00",
+      "Credit Alert: N50,000 has been credited"
+    ]
+  },
+  {
+    "id": "guaranteed_returns",
+    "scam_type": "ponzi",
+    "pattern": "\\b(?:guarantee[d]?|assured|fixed|risk[- ]free)\\b[^.\\n]{0,30}\\b(?:returns?|profits?|interest|roi|income)\\b|\\b(?:double|triple)\\s+(?:your|ur)\\s+(?:money|investment|funds?|crypto|usdt|btc|cash)\\b|\\b(?:invest|send|pay)\\b[^.\\n]{0,25}?[\\d,]+k?[^.\\n]{0,25}?\\b(?:get|receive|earn|collect)\\b[^\\d\\n]{0,15}[\\d,]+k?",
+    "weight": 35,
+    "hard": false,
+    "why_en": "Promises guaranteed or multiplied returns: that is how Ponzi schemes talk",
+    "why_pcm": "Dem dey promise sure profit or double money: na Ponzi talk be dat",
+    "examples": [
+      "Invest ₦50k, get ₦150k in 7 days",
+      "Guaranteed 40% returns every week",
+      "We double your USDT in 24 hours"
+    ]
+  },
+  {
+    "id": "high_percent_short",
+    "scam_type": "ponzi",
+    "pattern": "\\b\\d{2,3}\\s?%\\s*(?:daily|weekly|monthly|per (?:day|week|month)|in (?:\\d+|a|one|two) (?:days?|weeks?))",
+    "weight": 20,
+    "hard": false,
+    "why_en": "Unrealistic percentage return in a short time",
+    "why_pcm": "The percentage wey dem promise too much for short time",
+    "examples": [
+      "30% weekly",
+      "50% in 7 days"
+    ]
+  },
+  {
+    "id": "upfront_fee",
+    "scam_type": "advance_fee",
+    "pattern": "\\b(?:registration|processing|activation|clearance|delivery|application|form|admin(?:istrative)?|insurance|release|unlocking)\\s+(?:fee|charges?)\\b",
+    "weight": 40,
+    "hard": false,
+    "why_en": "Asks you to pay a fee before you get the job, loan or prize",
+    "why_pcm": "Dem wan make you pay fee before you collect job, loan or prize",
+    "examples": [
+      "Pay ₦5,000 registration fee to start",
+      "a small delivery fee of ₦3,500"
+    ]
+  },
+  {
+    "id": "job_bait",
+    "scam_type": "fake_job",
+    "pattern": "\\b(?:work from home|earn (?:up to )?(?:₦|ngn|n|\\$)?\\s?[\\d,]+k?\\s*(?:daily|weekly|per day|a day|per week)|no experience (?:needed|required)|data entry job|online job)\\b",
+    "weight": 15,
+    "hard": false,
+    "why_en": "Easy money job offer, common bait for fee scams",
+    "why_pcm": "Easy money job, na bait for fee scam",
+    "examples": [
+      "Earn ₦20,000 daily from home",
+      "No experience needed"
+    ]
+  },
+  {
+    "id": "prize",
+    "scam_type": "fake_prize",
+    "pattern": "\\b(?:you(?:'ve| have)?\\s+(?:won|been selected)|congratulations?!*\\s+you|winner of|claim your (?:prize|reward|gift)|lucky winner)\\b",
+    "weight": 30,
+    "hard": false,
+    "why_en": "Says you won something you never entered",
+    "why_pcm": "Dem talk say you win something wey you no enter",
+    "examples": [
+      "Congratulations! You have won an iPhone 15",
+      "Claim your prize now"
+    ]
+  },
+  {
+    "id": "new_number",
+    "scam_type": "impersonation",
+    "pattern": "\\b(?:this is my new (?:number|line)|i(?:'m| am) using (?:a|my) (?:new|friend'?s?) (?:number|line|phone)|it'?s me,? (?:mum|mom|dad|mummy|daddy|bro|sis)|new number,)",
+    "weight": 25,
+    "hard": false,
+    "why_en": "Someone claiming to be family on a new number: call their old number first",
+    "why_pcm": "Person dey claim say na your family with new number: call their old number first",
+    "examples": [
+      "Mummy it's me, this is my new number",
+      "I'm using my friend's phone"
+    ]
+  },
+  {
+    "id": "crypto_send",
+    "scam_type": "crypto_scam",
+    "pattern": "\\b(?:send|deposit|transfer|pay)\\b[^.\\n]{0,25}\\b(?:usdt|btc|bitcoin|eth|sol|crypto|bnb)\\b",
+    "weight": 15,
+    "hard": false,
+    "why_en": "Asks you to send crypto, which cannot be reversed",
+    "why_pcm": "Dem wan make you send crypto, and crypto no dey reverse",
+    "examples": [
+      "Send 50 USDT to this address",
+      "deposit BTC to start"
+    ]
+  },
+  {
+    "id": "click_to_verify",
+    "scam_type": "phishing_link",
+    "pattern": "\\b(?:click|tap|visit|follow|open)\\b[^.\\n]{0,30}\\b(?:link|here|below)\\b[^.\\n]{0,40}\\b(?:verify|update|reactivate|unblock|confirm|claim|restore|validate)",
+    "weight": 20,
+    "hard": false,
+    "why_en": "Asks you to click a link to 'verify' or 'unblock': banks don't do this",
+    "why_pcm": "Dem wan make you click link to 'verify': bank no dey do am like that",
+    "examples": [
+      "Click the link below to verify your account",
+      "Tap here to reactivate your account"
+    ]
+  },
+  {
+    "id": "secrecy",
+    "scam_type": "pressure",
+    "pattern": "\\b(?:don'?t|do not|never) (?:tell|inform|share this with) (?:anyone|anybody|your bank|your family)\\b|\\bkeep (?:this|it) (?:secret|confidential|between us)\\b",
+    "weight": 15,
+    "hard": false,
+    "why_en": "Asks you to keep it secret: scammers isolate victims",
+    "why_pcm": "Dem say make you hide am: scammers like make you dey alone",
+    "examples": [
+      "Do not tell anyone about this",
+      "keep this between us"
+    ]
+  },
+  {
+    "id": "instant_loan",
+    "scam_type": "loan_scam",
+    "pattern": "\\b(?:instant|quick|fast|easy) loans?\\b[^.\\n]{0,40}\\b(?:no (?:collateral|bvn|documents?|guarantor)|without (?:collateral|bvn|documents?))",
+    "weight": 15,
+    "hard": false,
+    "why_en": "Too-easy loan offer, often a fee or data-theft trap",
+    "why_pcm": "Loan wey too easy, e fit be fee or data trap",
+    "examples": [
+      "Instant loan of ₦500k, no collateral"
+    ]
+  },
+  {
+    "id": "authority_impersonation",
+    "scam_type": "impersonation",
+    "pattern": "\\b(?:cbn|central bank|efcc|nibss|ncc|nimc|firs)\\b[^.\\n]{0,60}\\b(?:pay|send|fee|fine|verify|update|link|bvn|nin|account)\\b",
+    "weight": 20,
+    "hard": false,
+    "why_en": "Uses a government agency's name to scare or rush you",
+    "why_pcm": "Dem dey use government agency name take scare you",
+    "examples": [
+      "CBN: update your BVN",
+      "EFCC has flagged your account, pay ₦20,000 fine"
+    ]
+  }
+]

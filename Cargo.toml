@@ -1,0 +1,23 @@
+[package]
+name = "shineeye"
+version = "0.1.0"
+edition = "2021"
+description = "Scam checker for Nigerians: paste a message, link or wallet, get a verdict in English or Pidgin."
+license = "MIT"
+repository = "https://github.com/OWNER/shineeye"
+
+[dependencies]
+anyhow = "1"
+axum = "0.8"
+dotenvy = "0.15"
+regex = "1"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "time", "net"] }
+tower-http = { version = "0.6", features = ["fs"] }
+url = "2"
+
+[profile.release]
+strip = true
+lto = "thin"
